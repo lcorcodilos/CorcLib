@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/env python
 from pylatex import Document, Figure, NoEscape, MiniPage
 
 def GroupImgToPdf(plot_files,outname,margin="0.5in"):
