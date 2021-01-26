@@ -3,7 +3,7 @@ from pylatex import Document, Figure, NoEscape, MiniPage
 
 def GroupImgToPdf(plot_files,outname,margin="0.5in"):
     # Write some LaTeX
-    tex = Document(geometry_options={"margin":margin})
+    tex = Document(geometry_options={"margin":margin},page_numbers=False)
     for iplot in range(0,len(plot_files),2):
         plot_left = plot_files[iplot]
         if iplot+1 < len(plot_files):
