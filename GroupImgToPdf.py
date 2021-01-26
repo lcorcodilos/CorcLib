@@ -22,21 +22,24 @@ if __name__ == "__main__":
     import glob
     parser = ArgumentParser()
 
-    parser.add_option('-o', '', metavar='F', action='store', type=str,
+    parser.add_argument('-o', metavar='F', action='store', type=str,
                     default   =   '',
                     required  =   True,
                     dest      =   'output',
                     help      =   'Output pdf name')
 
-    parser.add_option('-m', '', metavar='F', action='store', type=str,
+    parser.add_argument('-m', metavar='F', action='store', type=str,
                     default   =   '0.5in',
                     dest      =   'margin',
                     help      =   'Margin (with units)')
 
-    (options, args) = parser.parse_args()
+    parser.add_argument(dest = 'plotfiles', metavar='FILENAMES', type=str, nargs='+',
+                    help='Plot file names')
+
+    options = parser.parse_args()
 
     plots = []
-    for f in args:
+    for f in options.plotfiles:
         if '*' in f:
             plots.extend(glob.glob(f))
         else:
