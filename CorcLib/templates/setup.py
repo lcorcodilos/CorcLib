@@ -15,6 +15,7 @@ current_setup = setup(
     license = "",
     keywords = "",
     url = "",
+    data_files = [],
     packages = find_packages(),
     scripts = glob('scripts/*.py'), # A list of strings specifying the standalone script files to be built and installed.
     install_requires = [], # A string or list of strings specifying what other distributions need to be installed when this one is. 

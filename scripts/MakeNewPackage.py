@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''[summary]
+'''Makes a basic package with the following structure and with basic infrastructure already in place.
 Package/
 |--- __init__.py
 |--- setup.py
@@ -9,12 +9,12 @@ Package/
 |--- scripts/
 '''
 
-import subprocess, os, copy
+import subprocess, os
 from CorcLib.common import cd, lib_path
 
 def cmd(cmd):
     print (cmd)
-    subprocess.call(cmd.split())
+    subprocess.call(cmd, shell=True)
 
 def template_replace(template_name, replace):
     with open('%s/templates/%s'%(lib_path(), template_name), 'r') as f:
@@ -56,11 +56,18 @@ if __name__ == '__main__':
         # simple copies first
         for filename in ['__init__.py', 'version.py']:
             cmd('cp {0}/templates/{1} {1}'.format(lib_path(), filename))
-        # find replaces for package specific setup
+
+        # Make some dummy files
+        open ('%s/__init__.py'%name, 'w')
+        with open('scripts/dummy.py', 'w') as f:
+            f.write('#!/usr/bin/env python3')
+
+        # Find replaces for package specific setup
         for filename in ['setup.py', 'README.md']:
-            with open(filename) as f:
+            with open(filename, 'w') as f:
                 f.write(template_replace(filename, args))
-    
-    cmd('git init')
-    cmd('git add -A')
-    cmd('git commit -m "Base package structure created')
+
+        # Make a git commit
+        cmd('git init')
+        cmd('git add *')
+        cmd("git commit -m 'Base package structure created'")

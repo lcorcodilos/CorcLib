@@ -25,7 +25,7 @@ def cd(newdir): # pragma: no cover
         os.chdir(prevdir)
 
 def lib_path():
-    print (
+    return (
         os.path.dirname(
             os.path.abspath(__file__)
             )
