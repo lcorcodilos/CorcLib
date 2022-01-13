@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 template = '''
 from argparse import ArgumentParser()
 parser = ArgumentParser()

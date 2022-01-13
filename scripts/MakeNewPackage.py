@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''[summary]
 Package/
 |--- __init__.py
@@ -5,10 +6,11 @@ Package/
 |--- version.py
 |--- Package/
 |--- .git/
+|--- scripts/
 '''
 
 import subprocess, os, copy
-from common import cd, lib_path
+from CorcLib.common import cd, lib_path
 
 def cmd(cmd):
     print (cmd)
@@ -46,10 +48,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     name = args.PACKAGE_NAME
 
-    
-
     os.mkdir(name)
     os.mkdir(name+'/'+name)
+    os.mkdir(name+'/scripts')
 
     with cd(name):
         # simple copies first
@@ -60,3 +61,6 @@ if __name__ == '__main__':
             with open(filename) as f:
                 f.write(template_replace(filename, args))
     
+    cmd('git init')
+    cmd('git add -A')
+    cmd('git commit -m "Base package structure created')

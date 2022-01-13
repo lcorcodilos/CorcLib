@@ -1,6 +1,11 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+from glob import glob
+import os
 
-exec(open('PACKAGE_NAME/version.py').read())
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+exec(open('version.py').read())
 current_setup = setup(
     name = "PACKAGE_NAME",
     version = __version__,
@@ -10,8 +15,8 @@ current_setup = setup(
     license = "",
     keywords = "",
     url = "",
-    packages = [], # A list of strings specifying the packages that setuptools will manipulate.
-    scripts = [] # A list of strings specifying the standalone script files to be built and installed.
-    install_requires = [] # A string or list of strings specifying what other distributions need to be installed when this one is. 
+    packages = find_packages(),
+    scripts = glob('scripts/*.py'), # A list of strings specifying the standalone script files to be built and installed.
+    install_requires = [], # A string or list of strings specifying what other distributions need to be installed when this one is. 
     long_description=read('README.md'),
 )
