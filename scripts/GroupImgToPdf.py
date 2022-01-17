@@ -22,10 +22,11 @@ def GetIndexing(nplots,ncols):
     indexing = []
     nrows = math.ceil(nplots/ncols)
     for irows in range(0,nrows):
-        if irows <= (nrows-1):
-            indexing.append([irows + i for i in range(ncols)])
+        if irows < (nrows-1):
+            indexing.append([irows*ncols + i for i in range(ncols)])
         else:
-            indexing.append([irows + i for i in range(nplots%ncols)])
+            indexing.append([irows*ncols + i for i in range(nplots%ncols)])
+
     return indexing
 
 
