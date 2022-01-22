@@ -17,7 +17,7 @@ def cmd(cmd):
     subprocess.call(cmd, shell=True)
 
 def template_replace(template_name, replace):
-    with open('%s/templates/%s'%(lib_path(), template_name), 'r') as f:
+    with open(f'{lib_path()}/templates/{template_name}', 'r') as f:
         content = f.read()
         for find, replace in vars(replace).items():
             content = content.replace(find, replace)
@@ -49,16 +49,20 @@ if __name__ == '__main__':
     name = args.PACKAGE_NAME
 
     os.mkdir(name)
-    os.mkdir(name+'/'+name)
-    os.mkdir(name+'/scripts')
+    os.mkdir(f'{name}/src')
+    os.mkdir(f'{name}/src/{name}')
+    os.mkdir(f'{name}/scripts')
 
     with cd(name):
         # simple copies first
-        for filename in ['__init__.py', 'version.py']:
-            cmd('cp {0}/templates/{1} {1}'.format(lib_path(), filename))
+        for filename in ['version.py']:
+            cmd(f'cp {lib_path()}/templates/{filename} {filename}')
+
+        for filename in ['__init__.py']:
+            cmd(f"sed 's/PACKAGE_NAME/{name}/g' {lib_path()}/templates/{filename} > {filename}")
 
         # Make some dummy files
-        open ('%s/__init__.py'%name, 'w')
+        open (f'src/{name}/__init__.py', 'w')
         with open('scripts/dummy.py', 'w') as f:
             f.write('#!/usr/bin/env python3')
 
